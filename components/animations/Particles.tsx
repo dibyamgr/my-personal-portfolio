@@ -56,11 +56,72 @@ export default function Particles() {
     );
     scene.add(particlesMesh);
 
-    // Animation
+    // === Geometric Shapes ===
+    const shapes = [];
+    const geometries = [
+      // new THREE.TorusGeometry(0.7, 0.2, 16, 100),
+      new THREE.OctahedronGeometry(0.8),
+      new THREE.TetrahedronGeometry(0.8),
+      new THREE.IcosahedronGeometry(0.8, 0),
+      // new THREE.SphereGeometry(0.6, 32, 32),
+    ];
+
+    for (let i = 0; i < 15; i++) {
+      const geometry =
+        geometries[Math.floor(Math.random() * geometries.length)];
+      const material = new THREE.MeshBasicMaterial({
+        color: 0x00ff41,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.3,
+      });
+
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(
+        (Math.random() - 0.5) * 15,
+        (Math.random() - 0.5) * 15,
+        (Math.random() - 0.5) * 15
+      );
+      const scale = Math.random() * 0.8 + 0.4;
+      mesh.scale.set(scale, scale, scale);
+
+      scene.add(mesh);
+      shapes.push(mesh);
+    }
+
+    // === Mouse Interaction ===
+    let mouseX = 0,
+      mouseY = 0;
+    const handleMouseMove = (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+
+    // === Animation Loop ===
     const animate = () => {
       requestAnimationFrame(animate);
-      // Optional: rotate particles for effect
-      particlesMesh.rotation.y += 0.001;
+
+      // Animate particles
+      particlesMesh.rotation.y += 0.0005;
+      particlesMesh.rotation.x += 0.0003;
+      if (Math.abs(mouseX) > 0) {
+        particlesMesh.rotation.y += mouseX * 0.002;
+        particlesMesh.rotation.x += mouseY * 0.002;
+      }
+
+      // Animate shapes
+      shapes.forEach((shape, index) => {
+        shape.rotation.x += 0.002 * ((index % 3) + 1);
+        shape.rotation.y += 0.003 * ((index % 2) + 1);
+        shape.position.y += Math.sin(Date.now() * 0.001 + index) * 0.002;
+
+        if (Math.abs(mouseX) > 0) {
+          shape.rotation.x += mouseY * 0.005;
+          shape.rotation.y += mouseX * 0.005;
+        }
+      });
+
       renderer.render(scene, camera);
     };
     animate();
@@ -73,12 +134,14 @@ export default function Particles() {
     };
     window.addEventListener("resize", handleResize);
 
-    // Cleanup on unmount
+    // Cleanup
     return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       renderer.dispose();
       particlesGeometry.dispose();
       particlesMaterial.dispose();
+      shapes.forEach((shape) => shape.geometry.dispose());
     };
   }, []);
 
