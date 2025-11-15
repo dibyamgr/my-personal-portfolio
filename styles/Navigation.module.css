@@ -1,0 +1,149 @@
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 25px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 14, 39, 0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+  z-index: 1000;
+  transition: all 0.3s;
+}
+
+[data-theme="light"] .nav {
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid rgba(255, 107, 157, 0.2);
+}
+
+.nav.scrolled {
+  padding: 20px 60px;
+  background: rgba(10, 14, 39, 0.95);
+  box-shadow: 0 5px 30px rgba(0, 255, 65, 0.1);
+}
+
+[data-theme="light"] .nav.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary);
+  font-family: "Space Mono", monospace;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px var(--primary);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary);
+  }
+}
+
+.logo::before {
+  content: "> ";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes logoGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px var(--primary);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary);
+  }
+}
+
+.navLinks {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.navLinks a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  font-family: "Fira Code", monospace;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.navLinks a::before {
+  content: "// ";
+  color: var(--primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.navLinks a:hover::before {
+  opacity: 1;
+}
+
+.navLinks a:hover {
+  color: var(--primary);
+  text-shadow: 0 0 8px var(--primary);
+}
+
+.themeToggleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.themeToggle {
+  width: 50px;
+  height: 26px;
+  background: rgba(0, 255, 65, 0.2);
+  border-radius: 50px;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease;
+  margin-left: 20px;
+}
+
+.themeToggleSlider {
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.themeToggle[data-theme="light"] .themeToggleSlider {
+  left: 25px;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 20px 30px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+}
