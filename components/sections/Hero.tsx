@@ -58,14 +58,13 @@ export default function Hero() {
         </div> */}
 
         <p className={styles.heroDescription}>
-          I’m a Full-Stack Developer with 6 years of professional experience
-          building scalable and user-friendly applications. Passionate about AI
-          and emerging technologies, I enjoy integrating intelligent solutions
-          into software to solve complex problems efficiently. I continuously
-          sharpen my skills, currently pursuing a Master’s in Software
-          Engineering, and I love exploring new technologies while crafting
-          elegant, efficient solutions—sometimes with a little caffeine-fueled
-          creativity thrown in.
+          Hello world! I’m a full-stack software engineer currently based in
+          Canada. Over the past six years, I’ve worked on systems across
+          logistics, e-commerce, and energy tech—developing reliable backend
+          services, intuitive interfaces, and features used by thousands of
+          people. And I’ve learned that great software isn’t just engineered —
+          it’s crafted with curiosity, patience, and a bit of courage to keep
+          learning what’s next.
         </p>
 
         <div className={styles.heroStats}>
