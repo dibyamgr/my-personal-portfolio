@@ -1,0 +1,533 @@
+.section {
+  min-height: 100vh;
+  padding: 100px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+/* ========== TIMELINE LINE ========== */
+.timelineLine {
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: rgba(0, 255, 65, 0.1);
+  overflow: hidden;
+}
+
+[data-theme="light"] .timelineLine {
+  background: rgba(255, 107, 157, 0.15);
+}
+
+.timelineLineProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--primary),
+    var(--secondary),
+    var(--purple)
+  );
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+  animation: lineGlow 2s ease-in-out infinite;
+}
+
+@keyframes lineGlow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+}
+
+/* ========== TIMELINE ITEMS ========== */
+.timelineItem {
+  position: relative;
+  margin-bottom: 80px;
+  padding-left: 80px;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.timelineItem.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========== ANIMATED DOTS ========== */
+.timelineDotContainer {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.timelineDot {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dotFloat 3s ease-in-out infinite;
+}
+
+@keyframes dotFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.dotInner {
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary),
+    inset 0 0 10px rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 2;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary),
+      inset 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary),
+      inset 0 0 15px rgba(255, 255, 255, 0.8);
+  }
+}
+
+.dotPulse {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  animation: dotRipple 2s ease-out infinite;
+  opacity: 0;
+}
+
+@keyframes dotRipple {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* ========== CONTENT CARDS ========== */
+.timelineContent {
+  position: relative;
+  background: rgba(10, 14, 39, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  border-radius: 16px;
+  padding: 30px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+[data-theme="light"] .timelineContent {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 107, 157, 0.3);
+}
+
+.timelineContent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 65, 0.05),
+    rgba(0, 255, 255, 0.05),
+    rgba(185, 104, 255, 0.05)
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  border-radius: 16px;
+}
+
+.timelineContent:hover::before {
+  opacity: 1;
+}
+
+.timelineContent:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--primary);
+  box-shadow: 0 20px 60px rgba(0, 255, 65, 0.3),
+    0 0 40px rgba(0, 255, 65, 0.2), inset 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+[data-theme="light"] .timelineContent:hover {
+  box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3),
+    0 0 40px rgba(255, 107, 157, 0.2), inset 0 0 20px rgba(255, 107, 157, 0.1);
+}
+
+/* ========== CARD GLOW EFFECT ========== */
+.cardGlow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 255, 65, 0.15) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.timelineContent:hover .cardGlow {
+  opacity: 1;
+  animation: glowMove 3s ease-in-out infinite;
+}
+
+@keyframes glowMove {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, 20px);
+  }
+}
+
+/* ========== CARD CORNERS ========== */
+.cardCorner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--secondary);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 1;
+}
+
+.cardCorner[data-corner="top-left"] {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+  border-top-left-radius: 4px;
+}
+
+.cardCorner[data-corner="top-right"] {
+  top: -2px;
+  right: -2px;
+  border-left: none;
+  border-bottom: none;
+  border-top-right-radius: 4px;
+}
+
+.cardCorner[data-corner="bottom-left"] {
+  bottom: -2px;
+  left: -2px;
+  border-right: none;
+  border-top: none;
+  border-bottom-left-radius: 4px;
+}
+
+.cardCorner[data-corner="bottom-right"] {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+  border-bottom-right-radius: 4px;
+}
+
+.timelineContent:hover .cardCorner {
+  opacity: 1;
+}
+
+.timelineContent:hover .cardCorner[data-corner="top-left"] {
+  top: 8px;
+  left: 8px;
+}
+
+.timelineContent:hover .cardCorner[data-corner="top-right"] {
+  top: 8px;
+  right: 8px;
+}
+
+.timelineContent:hover .cardCorner[data-corner="bottom-left"] {
+  bottom: 8px;
+  left: 8px;
+}
+
+.timelineContent:hover .cardCorner[data-corner="bottom-right"] {
+  bottom: 8px;
+  right: 8px;
+}
+
+/* ========== CONTENT STYLING ========== */
+.timelineHeader {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 15px;
+}
+
+.timelineTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  font-family: "Space Mono", monospace;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
+
+.timelineContent:hover .timelineTitle {
+  transform: translateX(5px);
+  text-shadow: 0 0 30px var(--primary);
+}
+
+.timelineCompany {
+  font-size: 16px;
+  color: var(--secondary);
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Fira Code", monospace;
+  transition: all 0.3s ease;
+}
+
+.timelineCompany::before {
+  content: "📍";
+  font-size: 14px;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.timelineContent:hover .timelineCompany {
+  transform: translateX(5px);
+  color: var(--primary);
+}
+
+.timelineDate {
+  font-size: 14px;
+  color: rgba(224, 224, 224, 0.6);
+  font-family: "Fira Code", monospace;
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(0, 255, 65, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(0, 255, 65, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .timelineDate {
+  color: rgba(45, 45, 45, 0.7);
+  background: rgba(255, 107, 157, 0.1);
+  border: 1px solid rgba(255, 107, 157, 0.2);
+}
+
+.timelineContent:hover .timelineDate {
+  background: rgba(0, 255, 65, 0.2);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.timelineDescription {
+  position: relative;
+  z-index: 1;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.timelineContent:hover .timelineDescription {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+/* ========== END MARKER ========== */
+.timelineEnd {
+  position: relative;
+  padding-left: 80px;
+  margin-top: 40px;
+}
+
+.endDot {
+  position: absolute;
+  left: 16px;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
+  animation: endPulse 2s ease-in-out infinite;
+}
+
+.endDot span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bg-darker);
+  font-family: "Space Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes endPulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 0 40px var(--primary), 0 0 80px var(--primary);
+  }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+  .section {
+    padding: 80px 20px;
+  }
+
+  .timeline {
+    padding: 20px 0;
+  }
+
+  .timelineLine {
+    left: 15px;
+  }
+
+  .timelineItem {
+    padding-left: 50px;
+    margin-bottom: 50px;
+  }
+
+  .timelineDotContainer {
+    left: 1px;
+  }
+
+  .timelineDot {
+    width: 24px;
+    height: 24px;
+  }
+
+  .dotInner {
+    width: 12px;
+    height: 12px;
+  }
+
+  .dotPulse {
+    width: 24px;
+    height: 24px;
+  }
+
+  .timelineContent {
+    padding: 20px;
+  }
+
+  .timelineTitle {
+    font-size: 20px;
+  }
+
+  .timelineCompany {
+    font-size: 14px;
+  }
+
+  .timelineDate {
+    font-size: 12px;
+  }
+
+  .timelineDescription {
+    font-size: 14px;
+  }
+
+  .endDot {
+    left: 1px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .endDot span {
+    font-size: 9px;
+  }
+
+  .timelineEnd {
+    padding-left: 50px;
+  }
+
+  .cardCorner {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* ========== ACCESSIBILITY ========== */
+@media (prefers-reduced-motion: reduce) {
+  .timelineItem,
+  .timelineDot,
+  .dotInner,
+  .dotPulse,
+  .timelineContent,
+  .cardGlow,
+  .cardCorner,
+  .endDot {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .timelineItem.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
