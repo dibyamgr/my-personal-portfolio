@@ -12,29 +12,36 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    title: "Frontend Developer",
-    company: "Global Marwine - Remote",
-    date: "Jul 2017 - Dec 2017 • 6 mos",
+    title: "Frontend Developer Intern",
+    company: "Global Maritime - St. John's, Canada",
+    date: "Oct 2025 - Present • Part of the GSE Program by PSDP MUN",
     description:
       "Started my journey with the Professional Skills Development Program by Government of Newfoundland. Built responsive web applications, learned to love (and hate) CSS, and discovered that 'it works on my machine' isn't a valid debugging strategy. 🐛",
   },
   {
-    title: "Software Engineer",
-    company: "Digital Solution - Toronto, Canada (Hybrid)",
+    title: "SWE Intern",
+    company: "Angler Solutions Inc, St. John's, Canada",
     date: "Apr 2020 - Jul 2021 • 1 yr 4 mos",
     description:
       "Leveled up to full-stack development with the MERN stack. Built scalable applications, collaborated with awesome teams, and became best friends with Git merge conflicts. Also learned that 'quick fix' is never quick. ⚡",
   },
   {
     title: "Full Stack Engineer",
-    company: "TEC Canada - Toronto, Canada",
+    company: "Portpro Technologies, Nepal, US-based",
     date: "Jul 2021 - Feb 2023 • 1 yr 8 mos",
     description:
       "Architected and developed complex web applications, implemented RESTful APIs, and optimized database queries for maximum performance. Became the go-to person for 'why is this slow?' questions. Spoiler: It's usually the database. 🚀",
   },
   {
     title: "Frontend Developer",
-    company: "Rahat Solutions - Full-time",
+    company: "Supreme Technologies",
+    date: "Feb 2023 - Oct 2024 • 1 yr 9 mos",
+    description:
+      'Led frontend development initiatives, mentored junior developers (yes, I\'m the "senior" now!), and championed best practices for code quality. Learned that naming variables is actually the hardest part of programming. No cap. 💯',
+  },
+  {
+    title: "UI/UX and Frontend   Developer",
+    company: "Diprung Technologies",
     date: "Feb 2023 - Oct 2024 • 1 yr 9 mos",
     description:
       'Led frontend development initiatives, mentored junior developers (yes, I\'m the "senior" now!), and championed best practices for code quality. Learned that naming variables is actually the hardest part of programming. No cap. 💯',
