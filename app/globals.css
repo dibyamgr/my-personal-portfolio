@@ -11,7 +11,7 @@
 }
 
 :root {
-  /* --primary: #00ff41; */
+  /* Dark Mode - Vibrant Cyber Theme */
   --primary: #00e1ff;
   --secondary: #0ff;
   --accent: #ff006e;
@@ -19,16 +19,19 @@
   --bg-dark: #0a0e27;
   --bg-darker: #050816;
   --text: #e0e0e0;
+  --shadow-color: rgba(0, 225, 255, 0.3);
 }
 
 [data-theme="light"] {
+  /* Light Mode - Warm & Modern */
   --primary: #ff6b9d;
-  --secondary: #c44569;
+  --secondary: #ff8fab;
   --accent: #ffa07a;
-  --purple: #b19cd9;
-  --bg-dark: #fef7ff;
+  --purple: #a78bfa;
+  --bg-dark: #f8f9fa;
   --bg-darker: #ffffff;
-  --text: #2d2d2d;
+  --text: #1a202c;
+  --shadow-color: rgba(255, 107, 157, 0.2);
 }
 
 body {
@@ -196,13 +199,64 @@ section {
   font-style: italic;
 }
 
-/* Responsive */
+/* Responsive Mobile Enhancements */
 @media (max-width: 768px) {
   section {
-    padding: 80px 30px;
+    padding: 80px 24px;
   }
 
   .section-title {
-    font-size: 36px;
+    font-size: 32px;
+  }
+
+  .section-subtitle {
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  /* Mobile app-like feel */
+  body {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+  }
+
+  /* Better touch targets */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Smooth scrolling on mobile */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) {
+  section {
+    padding: 90px 40px;
+  }
+
+  .section-title {
+    font-size: 40px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1920px) {
+  section {
+    padding: 120px 80px;
+  }
+
+  .section-title {
+    font-size: 56px;
+  }
+
+  .section-subtitle {
+    font-size: 20px;
   }
 }

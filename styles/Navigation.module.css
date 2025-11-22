@@ -2,44 +2,58 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navContainer {
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 25px 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: rgba(10, 14, 39, 0.7);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 255, 65, 0.2);
-  z-index: 1000;
-  transition: all 0.3s;
+  border-bottom: 1px solid rgba(0, 225, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-theme="light"] .nav {
-  background: rgba(255, 255, 255, 0.7);
+[data-theme="light"] .navContainer {
+  background: rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid rgba(255, 107, 157, 0.2);
 }
 
-.nav.scrolled {
-  padding: 20px 60px;
+.nav.scrolled .navContainer {
+  padding: 18px 60px;
   background: rgba(10, 14, 39, 0.95);
-  box-shadow: 0 5px 30px rgba(0, 255, 65, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 225, 255, 0.15);
+  border-radius: 0 0 20px 20px;
 }
 
-[data-theme="light"] .nav.scrolled {
+[data-theme="light"] .nav.scrolled .navContainer {
   background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 32px rgba(255, 107, 157, 0.15);
 }
 
+/* Logo Styling */
 .logo {
   font-size: 24px;
   font-weight: 700;
-  color: var(--primary);
-  text-shadow: 0 0 10px var(--primary);
   font-family: "Space Mono", monospace;
-  animation: logoGlow 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-@keyframes logoGlow {
-  0%,
-  100% {
+.bracket {
+  color: var(--primary);
+  font-size: 28px;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
     text-shadow: 0 0 10px var(--primary);
   }
   50% {
@@ -47,37 +61,50 @@
   }
 }
 
-.logo::before {
-  content: "> ";
+.logoText {
+  color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(20deg);
+  }
+}
+
+.cursor {
+  color: var(--primary);
   animation: blink 1s infinite;
+  margin-left: 4px;
 }
 
 @keyframes blink {
-  0%,
-  50%,
-  100% {
+  0%, 50%, 100% {
     opacity: 1;
   }
-  25%,
-  75% {
+  25%, 75% {
     opacity: 0;
   }
 }
 
-@keyframes logoGlow {
-  0%,
-  100% {
-    text-shadow: 0 0 10px var(--primary);
-  }
-  50% {
-    text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary);
-  }
-}
-
+/* Navigation Links */
 .navLinks {
   display: flex;
   gap: 40px;
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks li {
+  position: relative;
 }
 
 .navLinks a {
@@ -85,65 +112,170 @@
   text-decoration: none;
   font-size: 14px;
   font-family: "Fira Code", monospace;
-  transition: all 0.3s;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: capitalize;
 }
 
-.navLinks a::before {
-  content: "// ";
+.linkPrefix,
+.linkSuffix {
   color: var(--primary);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
+  font-size: 16px;
 }
 
-.navLinks a:hover::before {
+.navLinks a:hover .linkPrefix,
+.navLinks a:hover .linkSuffix,
+.navLinks a.active .linkPrefix,
+.navLinks a.active .linkSuffix {
   opacity: 1;
 }
 
 .navLinks a:hover {
   color: var(--primary);
   text-shadow: 0 0 8px var(--primary);
+  transform: translateY(-2px);
 }
 
+.navLinks a.active {
+  color: var(--primary);
+}
+
+.navLinks a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--purple));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+}
+
+.navLinks a:hover::after,
+.navLinks a.active::after {
+  width: 100%;
+}
+
+/* Theme Toggle */
 .themeToggleContainer {
   display: flex;
   align-items: center;
 }
 
 .themeToggle {
-  width: 50px;
-  height: 26px;
-  background: rgba(0, 255, 65, 0.2);
-  border-radius: 50px;
-  position: relative;
+  background: none;
+  border: none;
   cursor: pointer;
-  border: 1px solid var(--primary);
-  transition: all 0.3s ease;
-  margin-left: 20px;
+  padding: 0;
+  transition: transform 0.3s ease;
 }
 
-.themeToggleSlider {
-  width: 20px;
-  height: 20px;
-  background: var(--primary);
+.themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.toggleTrack {
+  width: 60px;
+  height: 30px;
+  background: rgba(0, 225, 255, 0.2);
+  border: 2px solid var(--primary);
+  border-radius: 30px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.toggleTrack.light {
+  background: rgba(255, 193, 7, 0.2);
+  border-color: #ffc107;
+}
+
+.toggleThumb {
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(135deg, var(--primary), var(--purple));
   border-radius: 50%;
   position: absolute;
-  top: 2px;
-  left: 3px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px var(--primary);
+  top: 0px;
+  left: 0px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 225, 255, 0.4);
 }
 
-.themeToggle[data-theme="light"] .themeToggleSlider {
-  left: 25px;
+.toggleTrack.light .toggleThumb {
+  left: 32px;
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
 }
 
+.icon {
+  font-size: 14px;
+  color: white;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .nav {
+  .navContainer {
     padding: 20px 30px;
+  }
+
+  .nav.scrolled .navContainer {
+    padding: 15px 30px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .bracket {
+    font-size: 24px;
   }
 
   .navLinks {
     display: none;
+  }
+
+  .toggleTrack {
+    width: 50px;
+    height: 26px;
+  }
+
+  .toggleThumb {
+    width: 22px;
+    height: 22px;
+  }
+
+  .toggleTrack.light .toggleThumb {
+    left: 26px;
+  }
+}
+
+/* Mobile Menu (for future implementation) */
+@media (max-width: 768px) {
+  .mobileMenuButton {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .mobileMenuButton span {
+    width: 25px;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
   }
 }

@@ -1,6 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navigation from "../components/layout/Navigation";
 import Hero from "../components/sections/Hero";
 import Skills from "../components/sections/Skills";
@@ -8,22 +11,41 @@ import Projects from "../components/sections/Projects";
 import Contact from "../components/sections/Contact";
 import ScrollProgress from "../components/effects/ScrollProgress";
 import CustomCursor from "../components/effects/CustomCursor";
-import RobotCompanion from "../components/animations/RobotCompanion";
+import MusicPlayer from "../components/effects/MusicPlayer";
 import Particles from "../components/animations/Particles";
-import FloatingCode from "../components/effects/FloatingCode";
 import Link from "next/link";
 import Experience from "../components/sections/Experience";
 
-
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Home() {
+  useEffect(() => {
+    // Smooth scroll for sections with GSAP
+    gsap.utils.toArray("section").forEach((section: any, index) => {
+      gsap.from(section, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  }, []);
+
   return (
     <main>
       <CustomCursor />
 
       <ScrollProgress />
 
-      {/* <RobotCompanion /> */}
+      <MusicPlayer />
 
       <Particles />
 
@@ -37,7 +59,7 @@ export default function Home() {
 
       <section id="about">
         <h2 className="section-title">About Me</h2>
-        <p className="section-subtitle">// More about me</p>
+        <p className="section-subtitle">// The human behind the code</p>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
           <p
             style={{
@@ -48,8 +70,11 @@ export default function Home() {
               marginBottom: "40px",
             }}
           >
-            I’m currently in my last semester of the MASc. in Software
-            Engineering at{" "}
+            Hey there! 👋 I'm wrapping up my final semester in the{" "}
+            <span style={{ color: "var(--primary)", fontWeight: 600 }}>
+              MASc. in Software Engineering
+            </span>{" "}
+            at{" "}
             <span style={{ color: "var(--primary)", fontWeight: 600 }}>
               <Link
                 href="https://www.mun.ca/"
@@ -57,59 +82,65 @@ export default function Home() {
                 rel="noopener noreferrer"
               >
                 Memorial University of Newfoundland and Labrador
-              </Link>{" "}
-            </span>{" "}
-            , where I’m deepening my skills in designing scalable systems and
-            modern software architectures. Recently, I completed an internship
+              </Link>
+            </span>
+            , where I've been diving deep into scalable systems and modern
+            software architectures (and occasionally questioning my life choices
+            during final exams 😅).
+            <br />
+            <br />
+            My journey has taken me through some amazing experiences! I've worked
             with{" "}
             <span style={{ color: "var(--primary)", fontWeight: 600 }}>
               <Link
-                href=" https://www.anglersolutions.ca/"
+                href="https://www.anglersolutions.ca/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {" "}
                 Angler Solutions
-              </Link>{" "}
-            </span>
-            in St. John’s, contributing to their energy systems modeling
-            project. Today, I’m part of{" "}
+              </Link>
+            </span>{" "}
+            on energy systems modeling, and I'm currently building awesome
+            frontend experiences at{" "}
             <span style={{ color: "var(--primary)", fontWeight: 600 }}>
               <Link href="https://www.globalmaritime.com/">
-                {" "}
-                Global Maritime{" "}
+                Global Maritime
               </Link>
-            </span>
-            through the GSE program by PSDP MUN, contributing to the frontend
-            development of a logistic management software while continuing to
-            learn and grow as an engineer.
+            </span>{" "}
+            through the GSE program by PSDP MUN. Each project teaches me
+            something new, and I'm always excited to tackle the next challenge!
             <br />
             <br />
-            Beyond work, I’m endlessly curious about the world. I follow the
-            latest developments in science, get lost in a good book, explore new
-            places through travel, and also create TikToks.
+            When I'm not coding, you'll find me geeking out over the latest tech
+            trends, getting lost in a good sci-fi book 📚, exploring new places
+            (because life's too short to stay in one spot!), or creating fun
+            content on TikTok. I believe in lifelong learning and that the best
+            code is written by curious minds. ✨
           </p>
 
           <div
             style={{
-              background: "rgba(0, 255, 65, 0.05)",
-              borderLeft: "4px solid var(--primary)",
-              padding: "30px 40px",
-              borderRadius: "8px",
-              margin: "40px auto",
+              background: "linear-gradient(135deg, rgba(0, 225, 255, 0.1), rgba(185, 104, 255, 0.1))",
+              border: "2px solid var(--primary)",
+              borderRadius: "16px",
+              padding: "35px 45px",
+              margin: "50px auto",
               maxWidth: "700px",
+              boxShadow: "0 8px 32px rgba(0, 225, 255, 0.2)",
             }}
           >
             <div
               style={{
                 fontSize: "20px",
                 fontStyle: "italic",
-                color: "var(--text)",
+                color: "var(--primary)",
                 lineHeight: "1.6",
                 textAlign: "center",
+                fontWeight: 500,
               }}
             >
-              "In a world where you can be anything, be kind."
+              "In a world where you can be anything, be kind. And maybe write
+              clean code too." 💚
             </div>
           </div>
         </div>

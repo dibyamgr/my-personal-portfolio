@@ -376,6 +376,104 @@
   transform: scale(1.05);
 }
 
+.timelineSummary {
+  position: relative;
+  z-index: 1;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  opacity: 0.9;
+  margin-bottom: 20px;
+  font-style: italic;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.timelineContent:hover .timelineSummary {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* ========== HIGHLIGHTS LIST ========== */
+.highlightsList {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.highlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  opacity: 0.85;
+  transition: all 0.3s ease;
+}
+
+.highlightItem:hover {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.bullet {
+  color: var(--primary);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  animation: bulletPulse 2s ease-in-out infinite;
+}
+
+@keyframes bulletPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* ========== SHOW MORE BUTTON ========== */
+.showMoreBtn {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 225, 255, 0.1);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Fira Code", monospace;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.showMoreBtn:hover {
+  background: var(--primary);
+  color: var(--bg-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 225, 255, 0.3);
+}
+
+.arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+}
+
+.showMoreBtn:hover .arrow {
+  transform: translateY(2px);
+}
+
 .timelineDescription {
   position: relative;
   z-index: 1;
@@ -421,6 +519,28 @@
   font-family: "Space Mono", monospace;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.endText {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  font-family: "Fira Code", monospace;
+  white-space: nowrap;
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--primary);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary);
+  }
 }
 
 @keyframes endPulse {

@@ -29,12 +29,42 @@
   position: absolute;
   top: 30px;
   right: 30px;
-  background: var(--accent);
-  padding: 10px 20px;
-  border-radius: 20px;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  padding: 12px 24px;
+  border-radius: 25px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   font-family: "Fira Code", monospace;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(255, 0, 110, 0.3);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px rgba(255, 0, 110, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(255, 0, 110, 0.5);
+  }
+}
+
+.badgeStar {
+  font-size: 14px;
+  animation: starRotate 4s linear infinite;
+}
+
+@keyframes starRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .featuredContent {
@@ -121,10 +151,56 @@
 
 .projectHeader {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .projectCard .projectEmoji {
   font-size: 50px;
+  transition: transform 0.3s ease;
+}
+
+.projectCard:hover .projectEmoji {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.projectActions {
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.projectCard:hover .projectActions {
+  opacity: 1;
+}
+
+.iconLink {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 225, 255, 0.1);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 16px;
+}
+
+.iconLink:hover {
+  background: var(--primary);
+  color: var(--bg-darker);
+  transform: translateY(-3px) rotate(5deg);
+  box-shadow: 0 8px 20px rgba(0, 225, 255, 0.4);
+}
+
+[data-theme="light"] .iconLink {
+  background: rgba(255, 107, 157, 0.1);
+  border-color: var(--primary);
 }
 
 .projectTitle {
