@@ -19,17 +19,18 @@ export default function Particles() {
     );
     camera.position.z = 5;
 
-    // Renderer
+    // Renderer - optimized settings
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       alpha: true,
-      antialias: true,
+      antialias: false, // Disable for better performance
+      powerPreference: "high-performance",
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Limit pixel ratio
 
-    // Particle System
-    const particlesCount = 1500;
+    // Reduced Particle System (from 1500 to 400)
+    const particlesCount = 400;
     const particlesGeometry = new THREE.BufferGeometry();
     const posArray = new Float32Array(particlesCount * 3);
 
@@ -43,10 +44,10 @@ export default function Particles() {
     );
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.02,
+      size: 0.025,
       color: 0x00ff41,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.6,
       blending: THREE.AdditiveBlending,
     });
 
@@ -56,75 +57,82 @@ export default function Particles() {
     );
     scene.add(particlesMesh);
 
-    // === Geometric Shapes ===
+    // Reduced Geometric Shapes (from 15 to 5)
     const shapes = [];
     const geometries = [
-      // new THREE.TorusGeometry(0.7, 0.2, 16, 100),
-      new THREE.OctahedronGeometry(0.8),
-      new THREE.TetrahedronGeometry(0.8),
-      new THREE.IcosahedronGeometry(0.8, 0),
-      // new THREE.SphereGeometry(0.6, 32, 32),
+      new THREE.OctahedronGeometry(0.6),
+      new THREE.TetrahedronGeometry(0.6),
+      new THREE.IcosahedronGeometry(0.6, 0),
     ];
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 5; i++) {
       const geometry =
         geometries[Math.floor(Math.random() * geometries.length)];
       const material = new THREE.MeshBasicMaterial({
         color: 0x00ff41,
         wireframe: true,
         transparent: true,
-        opacity: 0.3,
+        opacity: 0.2,
       });
 
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 15
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 8
       );
-      const scale = Math.random() * 0.8 + 0.4;
+      const scale = Math.random() * 0.6 + 0.3;
       mesh.scale.set(scale, scale, scale);
 
       scene.add(mesh);
       shapes.push(mesh);
     }
 
-    // === Mouse Interaction ===
+    // Simplified mouse interaction
     let mouseX = 0,
       mouseY = 0;
+    let targetRotationX = 0;
+    let targetRotationY = 0;
+
     const handleMouseMove = (e) => {
       mouseX = (e.clientX / window.innerWidth) * 2 - 1;
       mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     };
     document.addEventListener("mousemove", handleMouseMove);
 
-    // === Animation Loop ===
-    const animate = () => {
+    // Animation Loop with FPS limiting
+    let lastTime = 0;
+    const fps = 30; // Limit to 30 FPS for better performance
+    const interval = 1000 / fps;
+
+    const animate = (currentTime) => {
       requestAnimationFrame(animate);
 
-      // Animate particles
-      particlesMesh.rotation.y += 0.0005;
-      particlesMesh.rotation.x += 0.0003;
-      if (Math.abs(mouseX) > 0) {
-        particlesMesh.rotation.y += mouseX * 0.002;
-        particlesMesh.rotation.x += mouseY * 0.002;
+      const deltaTime = currentTime - lastTime;
+      if (deltaTime < interval) return;
+      lastTime = currentTime - (deltaTime % interval);
+
+      // Smooth mouse interaction
+      targetRotationY += 0.0003;
+      targetRotationX += 0.0002;
+
+      if (Math.abs(mouseX) > 0.01) {
+        targetRotationY += mouseX * 0.001;
+        targetRotationX += mouseY * 0.001;
       }
 
-      // Animate shapes
-      shapes.forEach((shape, index) => {
-        shape.rotation.x += 0.002 * ((index % 3) + 1);
-        shape.rotation.y += 0.003 * ((index % 2) + 1);
-        shape.position.y += Math.sin(Date.now() * 0.001 + index) * 0.002;
+      particlesMesh.rotation.y = targetRotationY;
+      particlesMesh.rotation.x = targetRotationX;
 
-        if (Math.abs(mouseX) > 0) {
-          shape.rotation.x += mouseY * 0.005;
-          shape.rotation.y += mouseX * 0.005;
-        }
+      // Simplified shape animation
+      shapes.forEach((shape, index) => {
+        shape.rotation.x += 0.001;
+        shape.rotation.y += 0.0015;
       });
 
       renderer.render(scene, camera);
     };
-    animate();
+    animate(0);
 
     // Handle window resize
     const handleResize = () => {
@@ -141,7 +149,10 @@ export default function Particles() {
       renderer.dispose();
       particlesGeometry.dispose();
       particlesMaterial.dispose();
-      shapes.forEach((shape) => shape.geometry.dispose());
+      shapes.forEach((shape) => {
+        shape.geometry.dispose();
+        shape.material.dispose();
+      });
     };
   }, []);
 

@@ -21,7 +21,7 @@
   font-weight: 700;
   color: var(--primary);
   position: relative;
-  animation: glitch 5s infinite;
+  animation: glitch 8s infinite;
   font-family: "Space Mono", monospace;
   margin-bottom: 20px;
   line-height: 1.1;
@@ -160,6 +160,10 @@
   margin-top: 5px;
 }
 
+[data-theme="light"] .statLabel {
+  color: rgba(30, 41, 59, 0.7);
+}
+
 .terminalBox {
   background: rgba(0, 0, 0, 0.9);
   border: 2px solid var(--primary);
@@ -172,8 +176,9 @@
 }
 
 [data-theme="light"] .terminalBox {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(248, 250, 252, 0.95);
   border-color: var(--primary);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.2);
 }
 
 .terminalHeader {

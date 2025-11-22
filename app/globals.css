@@ -22,13 +22,13 @@
 }
 
 [data-theme="light"] {
-  --primary: #ff6b9d;
-  --secondary: #c44569;
-  --accent: #ffa07a;
-  --purple: #b19cd9;
-  --bg-dark: #fef7ff;
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --accent: #ec4899;
+  --purple: #a78bfa;
+  --bg-dark: #f8fafc;
   --bg-darker: #ffffff;
-  --text: #2d2d2d;
+  --text: #1e293b;
 }
 
 body {
@@ -131,19 +131,21 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background-image: linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
   z-index: 0;
-  animation: gridMove 20s linear infinite;
+  animation: gridMove 40s linear infinite;
+  will-change: transform;
 }
 
 [data-theme="light"] .grid-bg {
   background-image: linear-gradient(
-      rgba(255, 107, 157, 0.05) 1px,
+      rgba(99, 102, 241, 0.06) 1px,
       transparent 1px
     ),
-    linear-gradient(90deg, rgba(255, 107, 157, 0.05) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 /* Scroll Progress */
