@@ -6,6 +6,8 @@
   position: relative;
   padding: 120px 60px 60px;
   z-index: 1;
+  max-width: 900px;
+  margin: 0px auto;
 }
 
 .heroContent {
@@ -117,7 +119,7 @@
 }
 
 .heroDescription {
-  font-size: 18px;
+  font-size: 1rem;
   color: rgba(224, 224, 224, 0.7);
   max-width: 700px;
   line-height: 1.8;
