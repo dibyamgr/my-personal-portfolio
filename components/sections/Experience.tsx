@@ -10,28 +10,21 @@ interface ExperienceItem {
   description: string;
 }
 
+// Experiences ordered from current to previous (most recent first)
 const experiences: ExperienceItem[] = [
   {
     title: "Frontend Developer Intern",
     company: "Global Maritime - St. John's, Canada",
-    date: "Oct 2025 - Present • Part of the GSE Program by PSDP MUN",
-
+    date: "Oct 2024 - Present • Part of the GSE Program by PSDP MUN",
     description:
       "- Developed an interactive UI for the Deck Optimizer system, featuring realistic SVG container visuals, drag-and-drop interactions, and smooth animation effects.\n- Built a dynamic container library panel by integrating frontend components with Flask/Jinja backend data, enabling real-time rendering of container types and specs.\n- Implemented responsive, maritime-themed layouts using Bootstrap, custom CSS, and JavaScript, incorporating glassmorphism, gradients, and collapsible sidebars.\n- Integrated static HTML templates with backend APIs using Jinja templating, creating reusable frontend components for vessel selection, deck views, and control panels.\n- Enhanced user experience by designing interactive dashboards, tool panels, and deck visualization controls that support efficient maritime container management.",
   },
   {
-    title: "SWE Intern",
-    company: "Angler Solutions Inc, St. John's, Canada",
-    date: "Apr 2020 - Jul 2021 • 1 yr 4 mos",
+    title: "UI/UX and Frontend Developer",
+    company: "Diprung Technologies",
+    date: "Feb 2023 - Oct 2024 • 1 yr 9 mos",
     description:
-      "Leveled up to full-stack development with the MERN stack. Built scalable applications, collaborated with awesome teams, and became best friends with Git merge conflicts. Also learned that 'quick fix' is never quick. ⚡",
-  },
-  {
-    title: "Full Stack Engineer",
-    company: "Portpro Technologies, Nepal, US-based",
-    date: "Jul 2021 - Feb 2023 • 1 yr 8 mos",
-    description:
-      "Architected and developed complex web applications, implemented RESTful APIs, and optimized database queries for maximum performance. Became the go-to person for 'why is this slow?' questions. Spoiler: It's usually the database. 🚀",
+      'Led frontend development initiatives, mentored junior developers (yes, I\'m the "senior" now!), and championed best practices for code quality. Learned that naming variables is actually the hardest part of programming. No cap. 💯',
   },
   {
     title: "Frontend Developer",
@@ -41,11 +34,18 @@ const experiences: ExperienceItem[] = [
       'Led frontend development initiatives, mentored junior developers (yes, I\'m the "senior" now!), and championed best practices for code quality. Learned that naming variables is actually the hardest part of programming. No cap. 💯',
   },
   {
-    title: "UI/UX and Frontend   Developer",
-    company: "Diprung Technologies",
-    date: "Feb 2023 - Oct 2024 • 1 yr 9 mos",
+    title: "Full Stack Engineer",
+    company: "Portpro Technologies, Nepal, US-based",
+    date: "Jul 2021 - Feb 2023 • 1 yr 8 mos",
     description:
-      'Led frontend development initiatives, mentored junior developers (yes, I\'m the "senior" now!), and championed best practices for code quality. Learned that naming variables is actually the hardest part of programming. No cap. 💯',
+      "Architected and developed complex web applications, implemented RESTful APIs, and optimized database queries for maximum performance. Became the go-to person for 'why is this slow?' questions. Spoiler: It's usually the database. 🚀",
+  },
+  {
+    title: "SWE Intern",
+    company: "Angler Solutions Inc, St. John's, Canada",
+    date: "Apr 2020 - Jul 2021 • 1 yr 4 mos",
+    description:
+      "Leveled up to full-stack development with the MERN stack. Built scalable applications, collaborated with awesome teams, and became best friends with Git merge conflicts. Also learned that 'quick fix' is never quick. ⚡",
   },
 ];
 
@@ -157,7 +157,9 @@ export default function Experience() {
                 <div className={styles.timelineCompany}>{exp.company}</div>
                 <div className={styles.timelineDate}>{exp.date}</div>
               </div>
-              <p className={styles.timelineDescription}>{exp.description}</p>
+              <p className={styles.timelineDescription} style={{ whiteSpace: 'pre-line' }}>
+                {exp.description}
+              </p>
 
               {/* Decorative elements */}
               <div className={styles.cardCorner} data-corner="top-left" />

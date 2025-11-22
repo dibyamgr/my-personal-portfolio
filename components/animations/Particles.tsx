@@ -28,8 +28,8 @@ export default function Particles() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Particle System
-    const particlesCount = 1500;
+    // Particle System - Reduced
+    const particlesCount = 300; // Reduced from 1500
     const particlesGeometry = new THREE.BufferGeometry();
     const posArray = new Float32Array(particlesCount * 3);
 
@@ -43,10 +43,10 @@ export default function Particles() {
     );
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.02,
+      size: 0.015, // Slightly smaller
       color: 0x00ff41,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.4, // More subtle
       blending: THREE.AdditiveBlending,
     });
 
@@ -56,33 +56,32 @@ export default function Particles() {
     );
     scene.add(particlesMesh);
 
-    // === Geometric Shapes ===
+    // === 3D Geometric Lines - Enhanced ===
     const shapes = [];
     const geometries = [
-      // new THREE.TorusGeometry(0.7, 0.2, 16, 100),
-      new THREE.OctahedronGeometry(0.8),
-      new THREE.TetrahedronGeometry(0.8),
-      new THREE.IcosahedronGeometry(0.8, 0),
-      // new THREE.SphereGeometry(0.6, 32, 32),
+      new THREE.OctahedronGeometry(1.0),
+      new THREE.TetrahedronGeometry(1.0),
+      new THREE.IcosahedronGeometry(1.0, 0),
+      new THREE.BoxGeometry(1.2, 1.2, 1.2),
     ];
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 8; i++) {
       const geometry =
         geometries[Math.floor(Math.random() * geometries.length)];
       const material = new THREE.MeshBasicMaterial({
         color: 0x00ff41,
         wireframe: true,
         transparent: true,
-        opacity: 0.3,
+        opacity: 0.6, // More visible
       });
 
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 15
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 12,
+        (Math.random() - 0.5) * 8
       );
-      const scale = Math.random() * 0.8 + 0.4;
+      const scale = Math.random() * 1.0 + 0.5;
       mesh.scale.set(scale, scale, scale);
 
       scene.add(mesh);
@@ -102,24 +101,33 @@ export default function Particles() {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Animate particles
-      particlesMesh.rotation.y += 0.0005;
-      particlesMesh.rotation.x += 0.0003;
-      if (Math.abs(mouseX) > 0) {
-        particlesMesh.rotation.y += mouseX * 0.002;
-        particlesMesh.rotation.x += mouseY * 0.002;
-      }
+      // Animate particles - subtle movement
+      particlesMesh.rotation.y += 0.0003;
+      particlesMesh.rotation.x += 0.0002;
 
-      // Animate shapes
+      // Animate shapes - Enhanced mouse tracking
       shapes.forEach((shape, index) => {
-        shape.rotation.x += 0.002 * ((index % 3) + 1);
-        shape.rotation.y += 0.003 * ((index % 2) + 1);
-        shape.position.y += Math.sin(Date.now() * 0.001 + index) * 0.002;
+        // Base rotation
+        shape.rotation.x += 0.004 * ((index % 3) + 1);
+        shape.rotation.y += 0.005 * ((index % 2) + 1);
+        shape.rotation.z += 0.003;
 
-        if (Math.abs(mouseX) > 0) {
-          shape.rotation.x += mouseY * 0.005;
-          shape.rotation.y += mouseX * 0.005;
-        }
+        // Floating effect
+        shape.position.y += Math.sin(Date.now() * 0.001 + index) * 0.003;
+
+        // Enhanced mouse tracking - shapes follow mouse more responsively
+        const targetRotX = mouseY * 0.8;
+        const targetRotY = mouseX * 0.8;
+
+        shape.rotation.x += (targetRotX - shape.rotation.x) * 0.05;
+        shape.rotation.y += (targetRotY - shape.rotation.y) * 0.05;
+
+        // Move shapes based on mouse position
+        const targetPosX = mouseX * 1.5;
+        const targetPosY = -mouseY * 1.5;
+
+        shape.position.x += (targetPosX - shape.position.x) * 0.02;
+        shape.position.y += (targetPosY - shape.position.y) * 0.02;
       });
 
       renderer.render(scene, camera);

@@ -23,7 +23,7 @@ export default function Home() {
 
       <ScrollProgress />
 
-      {/* <RobotCompanion /> */}
+      <RobotCompanion />
 
       <Particles />
 
