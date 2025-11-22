@@ -15,8 +15,9 @@ const experiences: ExperienceItem[] = [
     title: "Frontend Developer Intern",
     company: "Global Maritime - St. John's, Canada",
     date: "Oct 2025 - Present • Part of the GSE Program by PSDP MUN",
+
     description:
-      "Started my journey with the Professional Skills Development Program by Government of Newfoundland. Built responsive web applications, learned to love (and hate) CSS, and discovered that 'it works on my machine' isn't a valid debugging strategy. 🐛",
+      "- Developed an interactive UI for the Deck Optimizer system, featuring realistic SVG container visuals, drag-and-drop interactions, and smooth animation effects.\n- Built a dynamic container library panel by integrating frontend components with Flask/Jinja backend data, enabling real-time rendering of container types and specs.\n- Implemented responsive, maritime-themed layouts using Bootstrap, custom CSS, and JavaScript, incorporating glassmorphism, gradients, and collapsible sidebars.\n- Integrated static HTML templates with backend APIs using Jinja templating, creating reusable frontend components for vessel selection, deck views, and control panels.\n- Enhanced user experience by designing interactive dashboards, tool panels, and deck visualization controls that support efficient maritime container management.",
   },
   {
     title: "SWE Intern",
