@@ -4,19 +4,21 @@ import { useEffect, useRef } from "react";
 import "./CustomCursor.css";
 
 export default function CustomCursor() {
-  const cursorRef = useRef(null);
-  const followerRef = useRef(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const followerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
     const cursorFollower = followerRef.current;
+
+    if (!cursor || !cursorFollower) return;
 
     let mouseX = 0,
       mouseY = 0;
     let followerX = 0,
       followerY = 0;
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       cursor.style.left = mouseX + "px";

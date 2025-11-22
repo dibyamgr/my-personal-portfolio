@@ -1,0 +1,148 @@
+.musicPlayer {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary), var(--purple));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 8px 32px rgba(0, 225, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.musicPlayer:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 48px rgba(0, 225, 255, 0.5);
+}
+
+.musicIcon {
+  font-size: 24px;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.musicIcon.playing {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.visualizer {
+  position: absolute;
+  bottom: -25px;
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 20px;
+}
+
+.bar {
+  width: 3px;
+  background: linear-gradient(to top, var(--primary), var(--purple));
+  border-radius: 2px;
+  animation: visualize 0.8s ease-in-out infinite;
+}
+
+.bar:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.bar:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.bar:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes visualize {
+  0%, 100% {
+    height: 5px;
+  }
+  50% {
+    height: 20px;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 75px;
+  right: 0;
+  background: rgba(10, 14, 39, 0.95);
+  color: var(--primary);
+  padding: 12px 20px;
+  border-radius: 12px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--primary);
+  box-shadow: 0 8px 32px rgba(0, 225, 255, 0.2);
+  animation: tooltipIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="light"] .tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--primary);
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .musicPlayer {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .musicIcon {
+    font-size: 20px;
+  }
+
+  .tooltip {
+    font-size: 12px;
+    padding: 8px 16px;
+    bottom: 65px;
+  }
+}
